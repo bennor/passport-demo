@@ -1,5 +1,6 @@
 import { getIdentity, type PassportIdentity } from "@vercel/passport";
 import { connection } from "next/server";
+import { logOut } from "./actions";
 
 function valueOrDash(value: unknown) {
   if (value === undefined || value === null || value === "") {
@@ -112,7 +113,19 @@ export default async function Home() {
             </svg>
             <span>Passport Demo</span>
           </a>
-          <span className="runtime-badge">Server rendered</span>
+          <div className="header-actions">
+            <span className="runtime-badge">Server rendered</span>
+            {identity ? (
+              <form action={logOut}>
+                <button className="logout-button" type="submit">
+                  Log out
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 3H3.5A1.5 1.5 0 0 0 2 4.5v7A1.5 1.5 0 0 0 3.5 13H6M10.5 5.5 13 8l-2.5 2.5M13 8H6" />
+                  </svg>
+                </button>
+              </form>
+            ) : null}
+          </div>
         </header>
 
         <div className="intro">
