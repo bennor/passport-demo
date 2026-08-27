@@ -252,7 +252,7 @@ export default async function Home() {
 
         <div className="intro">
           <p className="eyebrow">Vercel Passport</p>
-          <h1>Your request, identified.</h1>
+          <h1>Passport identity details</h1>
           <p className="lede">
             A live view of the identity Vercel Passport made available to this
             server-rendered request.
