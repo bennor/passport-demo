@@ -1,8 +1,43 @@
 import { getIdentity, type PassportIdentity } from "@vercel/passport";
 import { connection } from "next/server";
+import { highlight } from "sugar-high";
 import { logOut } from "./actions";
 
 const DEFAULT_ROLE_CLAIM = "https://example.com/roles";
+const PASSPORT_EXAMPLE = `import { getIdentity } from '@vercel/passport';
+
+const DEFAULT_ROLE_CLAIM = 'https://example.com/roles';
+
+export default async function Page() {
+  const identity = await getIdentity();
+
+  if (!identity) return <p>Unauthorized</p>;
+
+  const roleClaim =
+    process.env.PASSPORT_ROLE_CLAIM || DEFAULT_ROLE_CLAIM;
+  const roleValue = identity.payload[roleClaim];
+  const roles = (Array.isArray(roleValue) ? roleValue : [roleValue])
+    .filter((role) => typeof role === 'string' && role.length > 0);
+
+  const passport = {
+    issuer: identity.payload.iss,
+    subject: identity.subject,
+    externalSubject: identity.externalSubject,
+    externalIssuer: identity.externalIssuer,
+    email: identity.email,
+    name: identity.name,
+    verified: identity.verified,
+    owner: identity.owner,
+    project: identity.project,
+    environment: identity.environment,
+    connectorId: identity.connectorId,
+    tokenSource: identity.tokenSource,
+    roles,
+    payload: identity.payload,
+  };
+
+  return <IdentityView passport={passport} />;
+}`;
 
 function valueOrDash(value: unknown) {
   if (value === undefined || value === null || value === "") {
@@ -83,6 +118,23 @@ function IdentityCard({ identity }: { identity: PassportIdentity }) {
             <p className="roles-empty">No roles found.</p>
           )}
         </div>
+      </section>
+
+      <section className="implementation-card" aria-labelledby="code-heading">
+        <div className="code-heading">
+          <div>
+            <p className="eyebrow">Implementation</p>
+            <h2 id="code-heading">Reading Passport</h2>
+          </div>
+          <span className="language-badge">TypeScript</span>
+        </div>
+        <pre className="code-block">
+          <code
+            dangerouslySetInnerHTML={{
+              __html: highlight(PASSPORT_EXAMPLE, { lang: "typescript" }),
+            }}
+          />
+        </pre>
       </section>
 
       <section className="payload-card" aria-labelledby="payload-heading">

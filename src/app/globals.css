@@ -163,6 +163,7 @@ h1 {
 
 .identity-card,
 .roles-card,
+.implementation-card,
 .payload-card,
 .empty-card {
   overflow: hidden;
@@ -175,6 +176,7 @@ h1 {
 
 .card-heading,
 .roles-heading,
+.code-heading,
 .payload-heading {
   display: flex;
   align-items: center;
@@ -186,6 +188,7 @@ h1 {
 
 .card-heading .eyebrow,
 .roles-heading .eyebrow,
+.code-heading .eyebrow,
 .payload-heading .eyebrow {
   margin-bottom: 6px;
 }
@@ -272,6 +275,42 @@ h2 {
   margin: 6px 0 0;
   color: var(--secondary);
   font-size: 14px;
+}
+
+.language-badge {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--secondary);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  line-height: 24px;
+  padding: 0 10px;
+}
+
+.code-block {
+  --sh-class: #52a8ff;
+  --sh-identifier: #ededed;
+  --sh-sign: #a1a1a1;
+  --sh-property: #7dd3fc;
+  --sh-entity: #c4b5fd;
+  --sh-jsxliterals: #f9a8d4;
+  --sh-string: #86efac;
+  --sh-keyword: #f0abfc;
+  --sh-comment: #737373;
+  overflow-x: auto;
+  margin: 0;
+  padding: 24px;
+  background: #0a0a0a;
+  color: #ededed;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  tab-size: 2;
+}
+
+.code-block .sh__line {
+  display: block;
+  min-width: max-content;
 }
 
 .details-grid {
@@ -410,6 +449,7 @@ footer {
 
   .card-heading,
   .roles-heading,
+  .code-heading,
   .payload-heading {
     align-items: flex-start;
   }

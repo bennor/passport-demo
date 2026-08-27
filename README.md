@@ -4,7 +4,8 @@ A minimal Next.js app that displays the identity attached to a request by
 [Vercel Passport](https://www.npmjs.com/package/@vercel/passport).
 
 The page is rendered on the server for every request. It shows the structured
-identity fields and complete Passport payload, but never exposes the raw token.
+identity fields, roles, a highlighted implementation example, and the complete
+Passport payload, but never exposes the raw token.
 
 ## Local development
 
