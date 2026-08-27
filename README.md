@@ -25,3 +25,6 @@ Passport payload before starting the server.
 
 Deploy the repository to Vercel and configure Passport for the project. Requests
 without a valid Passport identity receive an unauthenticated empty state.
+
+The `main` branch is connected to the `passport-demo` project in the Bennor EAA
+Demo team. Pushing to `main` creates a production deployment.
