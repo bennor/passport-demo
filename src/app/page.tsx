@@ -120,6 +120,21 @@ function IdentityCard({ identity }: { identity: PassportIdentity }) {
         </div>
       </section>
 
+      <section className="payload-card" aria-labelledby="payload-heading">
+        <div className="payload-heading">
+          <div>
+            <p className="eyebrow">Passport payload</p>
+            <h2 id="payload-heading">All claims</h2>
+          </div>
+          <span className="claim-count">
+            {Object.keys(identity.payload).length} claims
+          </span>
+        </div>
+        <pre>
+          <code>{JSON.stringify(identity.payload, null, 2)}</code>
+        </pre>
+      </section>
+
       <section className="implementation-card" aria-labelledby="code-heading">
         <div className="code-heading">
           <div>
@@ -134,21 +149,6 @@ function IdentityCard({ identity }: { identity: PassportIdentity }) {
               __html: highlight(PASSPORT_EXAMPLE, { lang: "typescript" }),
             }}
           />
-        </pre>
-      </section>
-
-      <section className="payload-card" aria-labelledby="payload-heading">
-        <div className="payload-heading">
-          <div>
-            <p className="eyebrow">Passport payload</p>
-            <h2 id="payload-heading">All claims</h2>
-          </div>
-          <span className="claim-count">
-            {Object.keys(identity.payload).length} claims
-          </span>
-        </div>
-        <pre>
-          <code>{JSON.stringify(identity.payload, null, 2)}</code>
         </pre>
       </section>
 

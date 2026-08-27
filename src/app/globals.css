@@ -304,13 +304,18 @@ h2 {
   color: #ededed;
   font-family: var(--font-geist-mono), monospace;
   font-size: 13px;
-  line-height: 1.7;
+  line-height: 1.55;
   tab-size: 2;
 }
 
-.code-block .sh__line {
+.code-block code {
   display: block;
-  min-width: max-content;
+  width: max-content;
+  min-width: 100%;
+}
+
+.code-block .sh__line {
+  display: inline;
 }
 
 .details-grid {
