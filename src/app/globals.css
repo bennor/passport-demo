@@ -162,6 +162,7 @@ h1 {
 }
 
 .identity-card,
+.roles-card,
 .payload-card,
 .empty-card {
   overflow: hidden;
@@ -173,6 +174,7 @@ h1 {
 }
 
 .card-heading,
+.roles-heading,
 .payload-heading {
   display: flex;
   align-items: center;
@@ -183,6 +185,7 @@ h1 {
 }
 
 .card-heading .eyebrow,
+.roles-heading .eyebrow,
 .payload-heading .eyebrow {
   margin-bottom: 6px;
 }
@@ -223,6 +226,52 @@ h2 {
 
 .status.verified .status-dot {
   background: var(--success);
+}
+
+.claim-name {
+  overflow: hidden;
+  max-width: 58%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--background);
+  color: var(--secondary);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  line-height: 26px;
+  padding: 0 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roles-content {
+  min-height: 72px;
+  padding: 20px 24px;
+}
+
+.role-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.role-pill {
+  border: 1px solid #d8e8ff;
+  border-radius: 999px;
+  background: #f0f6ff;
+  color: #0068d6;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  line-height: 28px;
+  padding: 0 11px;
+}
+
+.roles-empty {
+  margin: 6px 0 0;
+  color: var(--secondary);
+  font-size: 14px;
 }
 
 .details-grid {
@@ -360,7 +409,17 @@ footer {
   }
 
   .card-heading,
+  .roles-heading,
   .payload-heading {
     align-items: flex-start;
+  }
+
+  .roles-heading {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .claim-name {
+    max-width: 100%;
   }
 }

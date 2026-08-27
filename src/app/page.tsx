@@ -2,6 +2,8 @@ import { getIdentity, type PassportIdentity } from "@vercel/passport";
 import { connection } from "next/server";
 import { logOut } from "./actions";
 
+const DEFAULT_ROLE_CLAIM = "https://example.com/roles";
+
 function valueOrDash(value: unknown) {
   if (value === undefined || value === null || value === "") {
     return "-";
@@ -10,7 +12,17 @@ function valueOrDash(value: unknown) {
   return String(value);
 }
 
+function getRoles(value: unknown) {
+  const roles = Array.isArray(value) ? value : [value];
+
+  return roles.filter(
+    (role): role is string => typeof role === "string" && role.trim() !== "",
+  );
+}
+
 function IdentityCard({ identity }: { identity: PassportIdentity }) {
+  const roleClaim = process.env.PASSPORT_ROLE_CLAIM?.trim() || DEFAULT_ROLE_CLAIM;
+  const roles = getRoles(identity.payload[roleClaim]);
   const details = [
     ["Name", identity.name],
     ["Email", identity.email],
@@ -48,6 +60,29 @@ function IdentityCard({ identity }: { identity: PassportIdentity }) {
             </div>
           ))}
         </dl>
+      </section>
+
+      <section className="roles-card" aria-labelledby="roles-heading">
+        <div className="roles-heading">
+          <div>
+            <p className="eyebrow">Authorization</p>
+            <h2 id="roles-heading">Roles</h2>
+          </div>
+          <code className="claim-name">{roleClaim}</code>
+        </div>
+        <div className="roles-content">
+          {roles.length > 0 ? (
+            <ul className="role-list">
+              {roles.map((role) => (
+                <li className="role-pill" key={role}>
+                  {role}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="roles-empty">No roles found.</p>
+          )}
+        </div>
       </section>
 
       <section className="payload-card" aria-labelledby="payload-heading">

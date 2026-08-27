@@ -21,6 +21,16 @@ Vercel, `@vercel/passport` supplies a development identity by default.
 To test a custom local identity, set `VERCEL_PASSPORT_IDENTITY` to a JSON
 Passport payload before starting the server.
 
+Roles are read from the `https://example.com/roles` payload claim by default.
+Set `PASSPORT_ROLE_CLAIM` to use a different claim:
+
+```bash
+PASSPORT_ROLE_CLAIM=https://example.com/roles
+```
+
+The claim may contain one role as a string or multiple roles as an array of
+strings. Missing, empty, and unsupported values render as `No roles found.`
+
 ## Deployment
 
 Deploy the repository to Vercel and configure Passport for the project. Requests
