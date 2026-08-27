@@ -355,6 +355,10 @@ dd {
 }
 
 .payload-card pre {
+  --sh-property: #7dd3fc;
+  --sh-sign: #a1a1a1;
+  --sh-space: #ededed;
+  --sh-string: #86efac;
   overflow-x: auto;
   margin: 0;
   padding: 24px;
@@ -363,6 +367,14 @@ dd {
   font-family: var(--font-geist-mono), monospace;
   font-size: 13px;
   line-height: 1.7;
+}
+
+.payload-card .sh__token--displayed {
+  border-radius: 3px;
+  background: #1d3b5c;
+  box-shadow: 0 0 0 2px #1d3b5c;
+  color: #bfdbfe !important;
+  font-weight: 600;
 }
 
 .security-note {

@@ -4,6 +4,19 @@ import { highlight } from "sugar-high";
 import { logOut } from "./actions";
 
 const DEFAULT_ROLE_CLAIM = "https://example.com/roles";
+const DISPLAYED_PAYLOAD_KEYS = [
+  "name",
+  "email",
+  "sub",
+  "external_sub",
+  "external_iss",
+  "owner",
+  "owner_id",
+  "project",
+  "project_id",
+  "environment",
+  "connector_id",
+];
 const PASSPORT_EXAMPLE = `import { getIdentity } from '@vercel/passport';
 
 const DEFAULT_ROLE_CLAIM = 'https://example.com/roles';
@@ -53,6 +66,24 @@ function getRoles(value: unknown) {
   return roles.filter(
     (role): role is string => typeof role === "string" && role.trim() !== "",
   );
+}
+
+function highlightPayload(
+  payload: PassportIdentity["payload"],
+  roleClaim: string,
+) {
+  const displayedKeys = new Set(
+    [...DISPLAYED_PAYLOAD_KEYS, roleClaim].map((key) => JSON.stringify(key)),
+  );
+
+  return highlight(JSON.stringify(payload, null, 2), {
+    lang: "json",
+    mark(token) {
+      if (token.type === "property" && displayedKeys.has(token.value)) {
+        token.className += " sh__token--displayed";
+      }
+    },
+  });
 }
 
 function IdentityCard({ identity }: { identity: PassportIdentity }) {
@@ -131,7 +162,11 @@ function IdentityCard({ identity }: { identity: PassportIdentity }) {
           </span>
         </div>
         <pre>
-          <code>{JSON.stringify(identity.payload, null, 2)}</code>
+          <code
+            dangerouslySetInnerHTML={{
+              __html: highlightPayload(identity.payload, roleClaim),
+            }}
+          />
         </pre>
       </section>
 
@@ -139,7 +174,7 @@ function IdentityCard({ identity }: { identity: PassportIdentity }) {
         <div className="code-heading">
           <div>
             <p className="eyebrow">Implementation</p>
-            <h2 id="code-heading">Reading Passport</h2>
+            <h2 id="code-heading">Reading a Passport identity</h2>
           </div>
           <span className="language-badge">TypeScript</span>
         </div>
